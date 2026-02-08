@@ -1,0 +1,32 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  .container {
+    height: 80vh;
+    border: 4px solid black;
+    position: relative;
+  }
+  
+  .item-1 {
+    height: 100%;
+  }
+  
+  .item-1 img {
+    width: 100%;
+    height: 100%;
+   
+
+  }
+  
+  .item-2 {
+  text-align:center;
+    position: absolute;
+    color: rgba(0, 0, 0, 0.471);
+    top: 0%;
+    left: 0%;
+  
+  }
+  
