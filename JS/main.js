@@ -69,7 +69,7 @@ const myFun = (a, b) => {
       data: [{}, {}],
     },
     {
-      name: "hello",
+      name: "hello hello",
     },
     {
       name: "hello",
