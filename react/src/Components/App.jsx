@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "./Navbar";
 import Form from "./Form";
-import Button from "../Button";
+import Button from "./Button";
 import { FaHome } from "react-icons/fa";
 
 const App = () => {
