@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Navbar = ({ user, text, status }) => {
   console.log(user, text, status);
@@ -11,10 +12,10 @@ const Navbar = ({ user, text, status }) => {
         <h1>Hello</h1>
       ) : (
         <ul className="flex gap-4">
-          <li>Home</li>
-          <li>About</li>
-          <li>Service</li>
-          <li>Contact</li>
+          <li><Link to="/">Home</Link></li>
+          <li><Link to="/about">About</Link></li>
+          <li><Link to="/service">Service</Link></li>
+          <li><Link to="/contact">Contact</Link></li>
         </ul>
       )}
 
