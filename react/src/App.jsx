@@ -12,6 +12,7 @@ import Api from "./Pages/Api";
 import SinglePage from "./Pages/SinglePage";
 import Table from "./Pages/Table";
 import AddProduct from "./Pages/AddProduct";
+import TodoList from "./Pages/TodoList";
 
 const App = () => {
   // const AdminLayout = () => {
@@ -71,6 +72,10 @@ const App = () => {
       element: <SinglePage />,
     },
 
+    {
+      path: "/todo",
+      element: <TodoList />,
+    },
     {
       path: "/register",
       element: <RegisterPage />,

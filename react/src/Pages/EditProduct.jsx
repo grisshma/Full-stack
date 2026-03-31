@@ -1,93 +1,93 @@
-import axios from "axios";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const EditProduct = () => {
+  const { id } = useParams();
   const navigate = useNavigate();
-  const init = {
-    title: "",
-    price: "",
-    description: "",
-    image: "",
-    category: "",
-  };
-  const [formData, setFormData] = useState(init);
+  const location = useLocation();
+  const product = location.state?.product;
+
+  const [form, setForm] = useState({
+    title: product?.title || "",
+    price: product?.price || "",
+    description: product?.description || "",
+  });
 
   const handleChange = (e) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    await axios
-      .post("https://fakestoreapi.com/products", formData)
-      .then((res) => {
-        console.log(res);
-        toast.success("Product added..");
-        navigate("/table");
-      })
-      .catch((err) => {
-        console.log(err);
-        toast.error("Error while adding product");
-      });
+    try {
+      await axios.put(`https://fakestoreapi.com/products/${id}`, form);
+      toast.success("Product updated successfully!");
+      setTimeout(() => navigate("/table"), 1500);
+    } catch {
+      toast.error("Failed to update product");
+    }
   };
-  return (
-    <div className="grid place-items-center h-screen">
-      <form
-        onSubmit={handleSubmit}
-        action=""
-        className="w-[32rem] flex flex-col p-8 gap-6 shadow-2xl rounded-xl"
-      >
-        <h1 className="text-4xl font-bold">Edit Product</h1>
-        <input
-          onChange={handleChange}
-          type="text"
-          placeholder="Enter product title"
-          className="p-2 rounded-md w-full"
-          name="title"
-          value={formData.title}
-        />
-        <input
-          onChange={handleChange}
-          type="text"
-          placeholder="Enter product category"
-          className="p-2 rounded-md w-full"
-          name="category"
-          value={formData.category}
-        />
-        <input
-          onChange={handleChange}
-          type="text"
-          placeholder="Enter image url"
-          className="p-2 rounded-md w-full"
-          name="image"
-          value={formData.image}
-        />
-        <input
-          onChange={handleChange}
-          type="number"
-          placeholder="Enter Price"
-          className="p-2 rounded-md w-full"
-          name="price"
-          value={formData.price}
-        />
-        <textarea
-          onChange={handleChange}
-          className="p-2 rounded-md w-full border-2"
-          rows={10}
-          placeholder="Enter product description"
-          name="description"
-          value={formData.description}
-        ></textarea>
 
-        <button
-          type="submit"
-          className="font-bold cursor-pointer text-white w-full p-2 rounded-md bg-blue-500"
-        >
-          Submit
-        </button>
+  return (
+    <div className="p-4 max-w-xl mx-auto">
+      <ToastContainer position="top-right" autoClose={2000} />
+      <h1 className="text-xl font-bold mb-4">Edit Product</h1>
+
+      <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+        <label className="flex flex-col">
+          Product Name:
+          <input
+            type="text"
+            name="title"
+            value={form.title}
+            onChange={handleChange}
+            className="border p-2 rounded"
+            required
+          />
+        </label>
+
+        <label className="flex flex-col">
+          Price:
+          <input
+            type="number"
+            name="price"
+            value={form.price}
+            onChange={handleChange}
+            className="border p-2 rounded"
+            required
+          />
+        </label>
+
+        <label className="flex flex-col">
+          Description:
+          <textarea
+            name="description"
+            value={form.description}
+            onChange={handleChange}
+            className="border p-2 rounded"
+            rows={4}
+            required
+          />
+        </label>
+
+        <div className="flex gap-2 mt-2">
+          <button
+            type="submit"
+            className="bg-green-500 text-white px-4 py-2 rounded"
+          >
+            Save
+          </button>
+          <button
+            type="button"
+            onClick={() => navigate("/table")}
+            className="bg-gray-500 text-white px-4 py-2 rounded"
+          >
+            Cancel
+          </button>
+        </div>
       </form>
     </div>
   );
