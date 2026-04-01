@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    background-color: #fef5cb;
+    font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', sans-serif;
+    color: #000;
+  }
+
+  button, input, textarea {
+    font-family: inherit;
+  }
+}
